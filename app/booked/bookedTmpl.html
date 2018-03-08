@@ -1,6 +1,26 @@
-<section class="booked-main-container" >
+<!-- Now that the bookedCtrl.js is setup, we can now add the package's city and country to the DOM. 
+We'll also add a ng-style to the parent section element to set the background-image to the package's image. 
+When using ng-style the syntax follows: { 'css-property': 'css-value' }. You can use {{}} to insert $scope.values into ng-style -->
+
+<!-- We'll also want to add an ng-if to the section element. This way, the element wont be rendered until $scope.package exists. 
+Otherwise, our ng-style won't work correctly. To add an ng-if we add it to an element as an attribute and assign it an expression. 
+We can do a simple truthy check for $scope.package -->
+
+<!-- Finally, we'll need to update the ui-sref in app.js to link to the correct packages route. 
+      If we look in app/app.js, in our router configuration, we'll see that the packages route is expecting a country parameter. 
+      Also, if we take a look at our data in mainSrvc we can see that our package objects have a property called country.
+Therefore, we can use {{ package.country }} in the DOM to fix our ui-sref link 
+To add parameters in a ui-sref all we need to do is add ({ paramName: paramValue }) next to the route name.  -->
+
+
+
+
+
+<section ng-if="package" class="booked-main-container" ng-style="{ 'background-image': 'url({{ package.image }})'}">
   <h1>Thanks for trusting us with your trip to <br>   <!-- Data bind the city name here --> </h1>
 
+  <!--hook up the ui-sref's in the template HTML files to allow the user to navigate the application. -->
   <!--This button needs a ui-sref that points to packages -->
-  <button ui-sref=""> VIEW MORE PACKAGES </button>
+  <button ui-sref="packages({ country: '{{package.country}}' })"> VIEW MORE PACKAGES </button>
+
 </section>

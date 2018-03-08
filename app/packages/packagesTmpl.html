@@ -1,13 +1,27 @@
+
+<!-- After injecting $stateParams and mainSrvc into the controller, We can then use $scope.packages with an ng-repeat to show all the packages on the DOM. 
+locate the section element with the class of package-card. 
+add an ng-repeat through packages on this element. We will also the following elements inside of package-card -->
+
+<!-- Lastly, we'll need to update the value of the ui-sref to include the package's id as a route parameter -->
+
 <section class="packages-main">
-  <section class="package-card" >
-    <img ng-src="" alt="" />
 
-    <h6> <!--The city name goes here--> </h6>
-    <h1><!--The country name goes here--></h1>
-    <p><!--The description goes here--></p>
-    <h3>$<!--The package price goes here--></h3>
+  <!-- This is where we need to repeat over our "packageInfo" data that we are getting from our controller. The controller is getting the data from the service. If you haven't made the controller do that now and include it on your state object in app.js-->
+  <section class="package-card" ng-repeat="package in packages">
 
+    <!-- Once we have the data we can use {{}} to bind that data to our view -->
+    <!--Add the image link from the data here using ng-src. Remember to put something in the alt tag, perhaps the name of the city-->
+    <img ng-src="{{ package.image }}" alt="{{ package.country }}" />
+
+    <!-- Now we can start to extract the data and bind it to our different elements here-->
+    <h6>{{ package.city }}</h6>
+    <h1>{{ package.country }}</h1>
+    <p>{{ package.desc }}</p>
+    <h3>${{ package.price }}</h3>
+
+    <!--hook up the ui-sref's in the template HTML files to allow the user to navigate the application. -->
     <!--This button needs a ui-sref that points to booked-->
-    <button ui-sref="booked">Book Now</button>
+    <button ui-sref="booked({ id: '{{ package.id }}' })">Book Now</button>
   </section>
 </section>
